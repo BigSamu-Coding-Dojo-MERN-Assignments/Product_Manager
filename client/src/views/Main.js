@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+
 import ProductForm from '../components/ProductForm'
 import ProductList from '../components/ProductList'
 
@@ -9,12 +10,8 @@ const Main = () => {
     // I) HOOKS & VARIABLES 
     // ----------------------------------
 
-    const [isUpdatingProducts, setIsUpdatingProducts] = useState(false)
-
-    useEffect(()=>{
-      console.log('HELLO')
-  },[])
-
+    const [isUpdatingProducts, setIsUpdatingProducts] = useState(true)
+  
     //-----------------------------------
     // II) JSX
     // ----------------------------------
@@ -25,12 +22,13 @@ const Main = () => {
             <ProductForm 
               isUpdatingProducts={isUpdatingProducts} 
               setIsUpdatingProducts={setIsUpdatingProducts}
+              formType={"create"}
             />
           </div>
 
           <hr className="border"/>
 
-          <ProductList
+          <ProductList 
             isUpdatingProducts={isUpdatingProducts} 
             setIsUpdatingProducts={setIsUpdatingProducts}
           />

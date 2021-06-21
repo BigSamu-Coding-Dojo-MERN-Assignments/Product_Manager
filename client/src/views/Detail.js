@@ -49,7 +49,6 @@ const Detail = (props) => {
                     <li>Price: $ {product.price}</li>
                     <li>Description: {product.description}</li>
                 </ul>
-                
             </div>
             }
         </>

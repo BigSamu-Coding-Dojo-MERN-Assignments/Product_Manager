@@ -4,6 +4,8 @@ import {
     Link
 } from "react-router-dom";
 
+import DeleteButton from './DeleteButton'
+
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -13,7 +15,7 @@ const ProductList = (props) => {
     // I) HOOKS & VARIABLES
     // ----------------------------------
 
-     // i) Lifting States
+    // i) Lifting States
     const {isUpdatingProducts, setIsUpdatingProducts} = props;
 
     // ii) React Hooks - States
@@ -21,41 +23,24 @@ const ProductList = (props) => {
 
     // iii) React Hooks - Effects
     
-    useEffect(()=>{
-        axios.get('http://localhost:8000/api/products')
-            .then(res=>{
-                console.log(res.data)
-                setProductList(res.data);
-            }); 
-    },[])
+    const getAllProducts = async () => {
+        await axios.get('http://localhost:8000/api/products')
+        .then(res=>{
+            console.log(res.data)
+            setProductList(res.data);
+            setIsUpdatingProducts(false)
+        }); 
+    }
 
-    
     useEffect(()=>{
-        if(isUpdatingProducts){
-            axios.get('http://localhost:8000/api/products')
-                .then(res=>{
-                    console.log(res.data)
-                    setProductList(res.data);
-                });
-            setIsUpdatingProducts(false);
-        }
+        console.log(isUpdatingProducts)
+        if(isUpdatingProducts)
+            getAllProducts();
     },[isUpdatingProducts])
 
     //-----------------------------------
     // II) HANDLERS
     // ----------------------------------
-
-    const deleteProduct = (personId) =>{
-        axios.delete('http://localhost:8000/api/products/delete/' + personId)
-            .then(res => {
-                setIsUpdatingProducts(true);
-            })
-            .catch(err => {
-                console.log(err)
-
-            })
-    }
-
 
 
     //-----------------------------------
@@ -78,14 +63,16 @@ const ProductList = (props) => {
                             Edit
                         </Link>
                         | 
-                        <button className="mx-1 btn btn-outline-danger btn-sm py-0" onClick = {(e) => deleteProduct(product._id)}>
-                            Delete
-                        </button>
+                        <DeleteButton 
+                            product = {product}
+                            changeStyle = {false}
+                            setIsUpdatingProducts = {setIsUpdatingProducts}
+                        />
                     
                 </p>
             )}
 
-        </div>
+            </div>
         </div>
     )
 }
