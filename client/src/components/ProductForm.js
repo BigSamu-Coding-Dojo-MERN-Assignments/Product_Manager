@@ -5,11 +5,18 @@ import axios from 'axios';
 const ProductForm = (props) => {
     
   //-----------------------------------
-  // I) VARIABLES
+  // I) HOOKS VARIABLES
   // ----------------------------------
 
-  //  We destructure props and lift state variable Product from Main Component
-  const {product, setProduct} = props;
+  // i) Lifting States
+  const {isUpdatingProducts, setIsUpdatingProducts} = props;
+
+  // ii) React Hooks - States
+  const [product, setProduct] = useState({
+    title: '',
+    price: '',
+    description: ''
+  });
 
 
   //-----------------------------------
@@ -31,6 +38,8 @@ const ProductForm = (props) => {
       .then(res=>console.log("Response: ", res))
       .catch(err=>console.log("Error: ", err))
     
+    setIsUpdatingProducts(true);
+
     setProduct({
       title: '',
       price: '',
@@ -54,7 +63,7 @@ const ProductForm = (props) => {
             >
               Title: 
             </label> 
-            <div class="col-8">
+            <div className="col-8">
               <input 
                 type="text" 
                 className="form-control" 
@@ -72,7 +81,7 @@ const ProductForm = (props) => {
             >
               Price:
             </label>
-            <div class="col-8">
+            <div className="col-8">
               <input 
                 type="number" 
                 className="form-control" 
@@ -90,7 +99,7 @@ const ProductForm = (props) => {
             >
               Description: 
             </label>
-            <div class="col-8">
+            <div className="col-8">
               <input 
                 type="text" 
                 className="form-control" 
@@ -102,9 +111,9 @@ const ProductForm = (props) => {
             </div> 
           </div>
           <input 
+            className="btn btn-primary"
             type="submit" 
             value="Submit" 
-            className="btn btn-primary"
           />
         </form>
       </div>

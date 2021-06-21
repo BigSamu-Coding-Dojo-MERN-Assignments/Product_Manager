@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ProductForm from '../components/ProductForm'
+import ProductList from '../components/ProductList'
 
 
 const Main = () => {
@@ -8,12 +9,7 @@ const Main = () => {
     // I) VARIABLES
     // ----------------------------------
 
-    // Variable that holds information about a Product inside Main component
-    const [product, setProduct] = useState({
-      title: '',
-      price: '',
-      description: ''
-    });
+    const [isUpdatingProducts, setIsUpdatingProducts] = useState(false)
 
     //-----------------------------------
     // II) JSX
@@ -23,10 +19,18 @@ const Main = () => {
         <div className ="container">
           <div className="w-50 m-auto">
             <ProductForm 
-              product={product} 
-              setProduct={setProduct}
+              isUpdatingProducts={isUpdatingProducts} 
+              setIsUpdatingProducts={setIsUpdatingProducts}
             />
           </div>
+
+          <hr className="border"/>
+
+          <ProductList
+            isUpdatingProducts={isUpdatingProducts} 
+            setIsUpdatingProducts={setIsUpdatingProducts}
+          />
+
         </div>
     )
 }
