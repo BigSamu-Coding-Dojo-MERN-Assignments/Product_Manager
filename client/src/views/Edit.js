@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
-
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import _ from 'lodash';
 
-const ProductForm = (props) => {
+import {useParams, useHistory} from "react-router-dom";
+
+const Edit = (props) => {
     
   //-----------------------------------
   // I) HOOKS & VARIABLES
@@ -17,7 +19,18 @@ const ProductForm = (props) => {
     price: '',
     description: ''
   });
+  const params = useParams();
+  const history = useHistory();
 
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/products/' + params.id)
+       
+        .then(res => {
+            console.log(res.data)
+            setProduct(res.data);
+        })
+}, [])
 
   //-----------------------------------
   // II) HANDLERS
@@ -34,17 +47,11 @@ const ProductForm = (props) => {
   
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/products/new', product)
+    axios.put('http://localhost:8000/api/products/edit/'+params.id, product)
       .then(res=>console.log("Response: ", res))
       .catch(err=>console.log("Error: ", err))
-    
-    setIsUpdatingProducts(true);
 
-    setProduct({
-      title: '',
-      price: '',
-      description: ''
-    })
+    history.push("/products")
   }
 
   //-----------------------------------
@@ -53,10 +60,10 @@ const ProductForm = (props) => {
 
   return (
     <>
-      <div className="mt-3">
+      <div className="mt-3 w-50 mx-auto">
         <form onSubmit={onSubmitHandler}>
-          <h2 className="mb-3">Product List</h2>
-          <div className="row mb-3 justify-content-center bg-light py-3">
+          <h2 className="mb-3">Edit Product</h2>
+          <div className="row justify-content-center bg-light py-3">
             <label 
               htmlFor="title" 
               className="col-2 col-form-label text-left"
@@ -74,7 +81,7 @@ const ProductForm = (props) => {
               />
             </div>
           </div>
-          <div className="row mb-3 justify-content-center bg-light py-3">
+          <div className="row justify-content-center bg-light py-3">
             <label 
               htmlFor="price" 
               className="col-2 col-form-label text-left"
@@ -92,7 +99,7 @@ const ProductForm = (props) => {
               />
             </div> 
           </div>
-          <div className="row mb-3 justify-content-center bg-light py-3">
+          <div className="row justify-content-center bg-light py-3">
             <label 
               htmlFor="description" 
               className="col-2 col-form-label text-left"
@@ -111,7 +118,7 @@ const ProductForm = (props) => {
             </div> 
           </div>
           <input 
-            className="btn btn-primary"
+            className="btn btn-primary mt-3"
             type="submit" 
             value="Submit" 
           />
@@ -121,4 +128,4 @@ const ProductForm = (props) => {
   )
 }
 
-export default ProductForm
+export default Edit

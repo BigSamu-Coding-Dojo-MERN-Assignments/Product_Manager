@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history';
 
 import Main from './views/Main'
 import Detail from './views/Detail'
+import Edit from './views/Edit'
 
 function App() {
   
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route exact path="/products/:id">
             <Detail/>
+          </Route>
+          <Route exact path="/products/edit/:id">
+            <Edit/>
           </Route>
           {/* <Route path="/">
             <Redirect to="/products"/>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ProductForm from '../components/ProductForm'
 import ProductList from '../components/ProductList'
 
@@ -6,10 +6,14 @@ import ProductList from '../components/ProductList'
 const Main = () => {
 
     //-----------------------------------
-    // I) VARIABLES
+    // I) HOOKS & VARIABLES 
     // ----------------------------------
 
     const [isUpdatingProducts, setIsUpdatingProducts] = useState(false)
+
+    useEffect(()=>{
+      console.log('HELLO')
+  },[])
 
     //-----------------------------------
     // II) JSX

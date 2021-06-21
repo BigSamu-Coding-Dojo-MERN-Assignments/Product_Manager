@@ -6,6 +6,9 @@ import {useParams, useHistory} from "react-router-dom";
 
 const Detail = (props) => {
     
+    //-----------------------------------
+    // I) HOOKS & VARIABLES
+    // ----------------------------------
     
     const [product, setProduct] = useState({})
     const [doesProductExist, setDoesProductExist] = useState(false)
@@ -33,6 +36,10 @@ const Detail = (props) => {
             })
     }, [])
     
+    //-----------------------------------
+    // II) JSX
+    // ----------------------------------
+
     return (
         <>  
             { doesProductExist && 
